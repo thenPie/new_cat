@@ -101,6 +101,9 @@ void flagger(FILE* file, int argc, char** argv) {
         // printf("%c", c);
         printer(argv, c, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt);
     }
+    if (c == EOF && show_dollar_ends_ee == 0) {
+        printf("$");
+    }
 }
 
 void printer(char** argv, char c, int b, int e, int n, int s, int t) {
@@ -111,7 +114,15 @@ void printer(char** argv, char c, int b, int e, int n, int s, int t) {
     // s - сжимает смежные пустые строки
     // t - отображает табы как ^I
 
-    printf("%c", c);
+    if (e == 0 && c == '\n') {
+        c = '$';
+    }
+
+    if (c == '$') {
+        printf("%c\n", c);
+    } else {
+        printf("%c", c);
+    }
 }
 
 // debug code
