@@ -74,6 +74,20 @@ void check_if_file_functional(int argc, char** argv) {
         }
     }
 
+    // it's in a file cause i can't bother with dynamic memory
+    // it has a unique and random filename so it doesn't overwrite something
+    // after all processes it will print out from this file and delete this temp file
+    FILE* temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "r");
+    if (temp_file == NULL) {
+        // create the file
+        temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "w");
+        fclose(temp_file);
+        temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "a");
+    } else if (temp_file != NULL) {
+        fclose(temp_file);
+        temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "a");
+    }
+
     for (int i = 1; i < argc; i++) {
         int no_file = 0;
         FILE* file = fopen(argv[i], "r");
@@ -86,6 +100,10 @@ void check_if_file_functional(int argc, char** argv) {
         if (no_file == -1) {
             printf("\n");
         }
+    }
+
+    if (temp_file != NULL) {
+        fclose(temp_file);
     }
 }
 
