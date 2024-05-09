@@ -21,13 +21,15 @@ void main_cat(int argc, char** argv) {
 
 void check_if_file_functional(int argc, char** argv) {
     for (int i = 1; i < argc; i++) {
+        int nothing = 0;
         FILE* file = fopen(argv[i], "r");
         if (file != NULL) {
             // print out the file here
             printer(file, argc, argv);
             fclose(file);
+            nothing = -1;
         }
-        if (i < argc - 1) {
+        if (i < argc - 1 && nothing == -1) {
             printf("\n");
         }
     }
