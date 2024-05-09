@@ -150,7 +150,7 @@ void printer(char** argv, char c, int b, int e, int n, int s, int t) {
 
 // debug code
 void print_all_argv_except_app_name(int argc, char** argv) {
-    printf(CLR_MAGENTA_BRIGHT
+    printf(CLR_GREEN_BRIGHT
            "--------------------------------------------\n!!!EXECUTING CODE TO PRINT OUT ALL THE INPUTTED "
            "ARGVs!!!\n\n");
     for (int i = 1; i < argc; i++) {
@@ -161,7 +161,7 @@ void print_all_argv_except_app_name(int argc, char** argv) {
 
 void check_if_file(int argc, char** argv) {
     printf(
-        CLR_BLUE_BRIGHT
+        CLR_GREEN_BRIGHT
         "--------------------------------------------\n!!!EXECUTING CODE TO CHECK IF ARGVs ARE FILES!!!\n\n");
     for (int i = 1; i < argc; i++) {
         FILE* file = fopen(argv[i], "r");
@@ -169,7 +169,7 @@ void check_if_file(int argc, char** argv) {
             printf("Yes, argv[%d] is a file and can be read\n", i);
             fclose(file);
         } else {
-            printf(CLR_RED_BRIGHT "No, argv[%d] is NOT a file and can't be read\n" CLR_BLUE_BRIGHT, i);
+            printf(CLR_RED_BRIGHT "No, argv[%d] is NOT a file and can't be read\n" CLR_GREEN_BRIGHT, i);
         }
     }
     printf("\n!!!CHECKED ALL FILES!!!\n--------------------------------------------" CLR_RESET "\n");
