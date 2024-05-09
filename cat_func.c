@@ -25,7 +25,7 @@ void check_if_file_functional(int argc, char** argv) {
         FILE* file = fopen(argv[i], "r");
         if (file != NULL) {
             // print out the file here
-            printer(file, argc, argv);
+            flagger(file, argc, argv);
             fclose(file);
             nothing = -1;
         }
@@ -35,7 +35,7 @@ void check_if_file_functional(int argc, char** argv) {
     }
 }
 
-void printer(FILE* file, int argc, char** argv) {
+void flagger(FILE* file, int argc, char** argv) {
 
     // b - нумерует только непустые строки
     // e - \n отображает как $
@@ -89,8 +89,19 @@ void printer(FILE* file, int argc, char** argv) {
 
     char c;
     while ((c = fgetc(file)) != EOF) {
-        printf("%c", c);
+        // printf("%c", c);
+        printer(argv, c, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt);
     }
+}
+
+void printer(char** argv, char c, int b, int e, int n, int s, int t) {
+
+    // b - нумерует только непустые строки
+    // e - \n отображает как $
+    // n - нумерует все строки
+    // s - сжимает смежные пустые строки
+    // t - отображает табы как ^I
+
 }
 
 // debug code
