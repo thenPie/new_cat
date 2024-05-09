@@ -1,5 +1,6 @@
 #include "cat_func.h"
 #include <bits/getopt_ext.h>
+#include <stdio.h>
 
 // functional code
 void run_cat(int argc, char** argv) {
@@ -57,27 +58,35 @@ void flagger(FILE* file, int argc, char** argv) {
     };
 
     int opt;
+    // TODO: ignores wrong options for now, need to ask around!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     while ((opt = getopt_long(argc, argv, ":benstET", long_opt, NULL)) != -1) {
         switch (opt) {
             case 'b':
+                what_opt(opt);
                 number_non_empty_lines_bb = 0;
                 break;
             case 'e':
+                what_opt(opt);
                 show_dollar_ends_ee = 0;
                 break;
             case 'n':
+                what_opt(opt);
                 number_all_lines_nn = 0;
                 break;
             case 's':
+                what_opt(opt);
                 suppress_empty_lines_ss = 0;
                 break;
             case 't':
+                what_opt(opt);
                 show_tabs_tt = 0;
                 break;
             case 'E':
+                what_opt(opt);
                 show_dollar_ends_ee = 0;
                 break;
             case 'T':
+                what_opt(opt);
                 show_tabs_tt = 0;
                 break;
             case '?':
@@ -102,6 +111,7 @@ void printer(char** argv, char c, int b, int e, int n, int s, int t) {
     // s - сжимает смежные пустые строки
     // t - отображает табы как ^I
 
+    printf("%c", c);
 }
 
 // debug code
@@ -129,4 +139,8 @@ void check_if_file(int argc, char** argv) {
         }
     }
     printf("\n!!!CHECKED ALL FILES!!!\n--------------------------------------------" CLR_RESET "\n");
+}
+
+void what_opt(int opt) {
+    printf("%c - is opt\n", (char)opt);
 }

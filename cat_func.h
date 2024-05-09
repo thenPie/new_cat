@@ -45,5 +45,6 @@ void printer(char** argv, char c, int b, int e, int n, int s, int t);
 // debug code
 void print_all_argv_except_app_name(int argc, char** argv);
 void check_if_file(int argc, char** argv);
+void what_opt(int opt);
 
 #endif
