@@ -20,6 +20,23 @@ void main_cat(int argc, char** argv) {
     printf("<----------------------!!!MAIN CAT STOPPED!!!\n");
 }
 
+/* bug found
+
+TODO: fix it!!!
+
+./s21_cat -Et files/second_file.txt files/first_file.txt
+
+!!!MAIN CAT STARTS!!!
+
+E - is opt
+t - is opt
+Testing$
+the Second$
+file$
+First
+        file<----------------------!!!MAIN CAT STOPPED!!!
+*/
+
 void check_if_file_functional(int argc, char** argv) {
     for (int i = 1; i < argc; i++) {
         int nothing = 0;
