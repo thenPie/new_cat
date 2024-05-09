@@ -118,8 +118,14 @@ void printer(char** argv, char c, int b, int e, int n, int s, int t) {
         c = '$';
     }
 
+    if (t == 0 && c == '	') {
+        c = '^';
+    }
+
     if (c == '$') {
         printf("%c\n", c);
+    } else if (c == '^') {
+        printf("%cI", c);
     } else {
         printf("%c", c);
     }
