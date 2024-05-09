@@ -20,46 +20,7 @@ void main_cat(int argc, char** argv) {
     printf("<----------------------!!!MAIN CAT STOPPED!!!\n");
 }
 
-/* bug found
-
-TODO: fix it!!!
-
-./s21_cat -Et files/second_file.txt files/first_file.txt
-
-!!!MAIN CAT STARTS!!!
-
-E - is opt
-t - is opt
-Testing$
-the Second$
-file$
-First
-        file<----------------------!!!MAIN CAT STOPPED!!!
-*/
-
 void check_if_file_functional(int argc, char** argv) {
-    for (int i = 1; i < argc; i++) {
-        int nothing = 0;
-        FILE* file = fopen(argv[i], "r");
-        if (file != NULL) {
-            // print out the file here
-            flagger(file, argc, argv);
-            fclose(file);
-            nothing = -1;
-        }
-        if (i < argc - 1 && nothing == -1) {
-            printf("\n");
-        }
-    }
-}
-
-void flagger(FILE* file, int argc, char** argv) {
-
-    // b - нумерует только непустые строки
-    // e - \n отображает как $
-    // n - нумерует все строки
-    // s - сжимает смежные пустые строки
-    // t - отображает табы как ^I
 
     // initialize variables for the flags
     int number_non_empty_lines_bb = -1; // number-nonblank
@@ -113,17 +74,22 @@ void flagger(FILE* file, int argc, char** argv) {
         }
     }
 
-    char c;
-    while ((c = fgetc(file)) != EOF) {
-        // printf("%c", c);
-        printer(argv, c, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt);
-    }
-    if (c == EOF && show_dollar_ends_ee == 0) {
-        printf("$");
+    for (int i = 1; i < argc; i++) {
+        int no_file = 0;
+        FILE* file = fopen(argv[i], "r");
+        if (file != NULL) {
+            // print out the file here
+            printer(argv, file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt);
+            fclose(file);
+            no_file = -1;
+        }
+        if (no_file == -1 && i < argc - 1) {
+            printf("\n");
+        }
     }
 }
 
-void printer(char** argv, char c, int b, int e, int n, int s, int t) {
+void printer(char** argv, FILE* file, int b, int e, int n, int s, int t) {
 
     // b - нумерует только непустые строки
     // e - \n отображает как $
@@ -131,20 +97,31 @@ void printer(char** argv, char c, int b, int e, int n, int s, int t) {
     // s - сжимает смежные пустые строки
     // t - отображает табы как ^I
 
-    if (e == 0 && c == '\n') {
-        c = '$';
-    }
+    char c;
+    while ((c = fgetc(file)) != EOF) {
+        // printf("%c", c);
+        if (c == EOF && e == 0) {
+            printf("$");
+        }
 
-    if (t == 0 && c == '	') {
-        c = '^';
-    }
+        if (e == 0 && c == '\n') {
+            c = '$';
+        }
 
-    if (c == '$') {
-        printf("%c\n", c);
-    } else if (c == '^') {
-        printf("%cI", c);
-    } else {
-        printf("%c", c);
+        if (t == 0 && c == '	') {
+            c = '^';
+        }
+
+        if (c == '$') {
+            printf("%c\n", c);
+        } else if (c == '^') {
+            printf("%cI", c);
+        } else {
+            printf("%c", c);
+        }
+    }
+    if (e == 0 && c == EOF) {
+        printf("$");
     }
 }
 

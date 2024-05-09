@@ -39,8 +39,7 @@
 void run_cat(int argc, char** argv);
 void main_cat(int argc, char** argv);
 void check_if_file_functional(int argc, char** argv);
-void flagger(FILE* file, int argc, char** argv);
-void printer(char** argv, char c, int b, int e, int n, int s, int t);
+void printer(char** argv, FILE* file, int b, int e, int n, int s, int t);
 
 // debug code
 void print_all_argv_except_app_name(int argc, char** argv);
