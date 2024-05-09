@@ -1,4 +1,5 @@
 #include "cat_func.h"
+#include <bits/getopt_ext.h>
 
 // functional code
 void run_cat(int argc, char** argv) {
@@ -23,7 +24,7 @@ void check_if_file_functional(int argc, char** argv) {
         FILE* file = fopen(argv[i], "r");
         if (file != NULL) {
             // print out the file here
-            printer(file);
+            printer(file, argc, argv);
             fclose(file);
         }
         if (i < argc - 1) {
@@ -32,7 +33,58 @@ void check_if_file_functional(int argc, char** argv) {
     }
 }
 
-void printer(FILE* file) {
+void printer(FILE* file, int argc, char** argv) {
+
+    // b - нумерует только непустые строки
+    // e - \n отображает как $
+    // n - нумерует все строки
+    // s - сжимает смежные пустые строки
+    // t - отображает табы как ^I
+
+    // initialize variables for the flags
+    int number_non_empty_lines_bb = -1; // number-nonblank
+    int show_dollar_ends_ee = -1;
+    int number_all_lines_nn = -1;       // number
+    int suppress_empty_lines_ss = -1;   // squeeze-blank
+    int show_tabs_tt = -1;
+
+    struct option long_opt[] = {
+        {"number-nonblank", 0, 0, 'b'},
+        {"number", 0, 0, 'n'},
+        {"squeeze-blank", 0, 0, 's'}
+    };
+
+    int opt;
+    while ((opt = getopt_long(argc, argv, ":benstET", long_opt, NULL)) != -1) {
+        switch (opt) {
+            case 'b':
+                number_non_empty_lines_bb = 0;
+                break;
+            case 'e':
+                show_dollar_ends_ee = 0;
+                break;
+            case 'n':
+                number_all_lines_nn = 0;
+                break;
+            case 's':
+                suppress_empty_lines_ss = 0;
+                break;
+            case 't':
+                show_tabs_tt = 0;
+                break;
+            case 'E':
+                show_dollar_ends_ee = 0;
+                break;
+            case 'T':
+                show_tabs_tt = 0;
+                break;
+            case '?':
+                break;
+            default:
+                break;
+        }
+    }
+
     char c;
     while ((c = fgetc(file)) != EOF) {
         printf("%c", c);

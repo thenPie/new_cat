@@ -6,7 +6,7 @@ CAT_SRC_CODE = cat.c cat_func.c
 all: s21_cat
 
 s21_cat: $(CAT_SRC_CODE)
-	$(CC_FLAGS_STD) $(NAME_IS) s21_cat $(CAT_SRC_CODE)
+	$(CC) $(NAME_IS) s21_cat $(CAT_SRC_CODE)
 
 clang-check:
 	clang-format -n *.c

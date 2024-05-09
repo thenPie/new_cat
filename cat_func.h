@@ -2,6 +2,7 @@
 #define CAT_FUNC_H
 
 #include <stdio.h>
+#include <getopt.h>
 
 // fancy colourful text
 #define CLR_RED "\x1b[31m"
@@ -38,7 +39,7 @@
 void run_cat(int argc, char** argv);
 void main_cat(int argc, char** argv);
 void check_if_file_functional(int argc, char** argv);
-void printer(FILE* file);
+void printer(FILE* file, int argc, char** argv);
 
 // debug code
 void print_all_argv_except_app_name(int argc, char** argv);
