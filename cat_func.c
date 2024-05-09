@@ -26,6 +26,9 @@ void check_if_file_functional(int argc, char** argv) {
             printer(file);
             fclose(file);
         }
+        if (i < argc - 1) {
+            printf("\n");
+        }
     }
 }
 
@@ -38,7 +41,7 @@ void printer(FILE* file) {
 
 // debug code
 void print_all_argv_except_app_name(int argc, char** argv) {
-    printf(CLR_RED_BRIGHT
+    printf(CLR_MAGENTA_BRIGHT
            "--------------------------------------------\n!!!EXECUTING CODE TO PRINT OUT ALL THE INPUTTED "
            "ARGVs!!!\n\n");
     for (int i = 1; i < argc; i++) {
@@ -48,7 +51,9 @@ void print_all_argv_except_app_name(int argc, char** argv) {
 }
 
 void check_if_file(int argc, char** argv) {
-    printf(CLR_BLUE_BRIGHT "--------------------------------------------\n!!!EXECUTING CODE TO CHECK IF ARGVs ARE FILES!!!\n\n");
+    printf(
+        CLR_BLUE_BRIGHT
+        "--------------------------------------------\n!!!EXECUTING CODE TO CHECK IF ARGVs ARE FILES!!!\n\n");
     for (int i = 1; i < argc; i++) {
         FILE* file = fopen(argv[i], "r");
         if (file != NULL) {
