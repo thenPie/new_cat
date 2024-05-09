@@ -1,5 +1,5 @@
 #include "cat_func.h"
-#include <bits/getopt_ext.h>
+#include <getopt.h>
 #include <stdio.h>
 
 // functional code
@@ -83,7 +83,7 @@ void check_if_file_functional(int argc, char** argv) {
             fclose(file);
             no_file = -1;
         }
-        if (no_file == -1 && i < argc - 1) {
+        if (no_file == -1) {
             printf("\n");
         }
     }
@@ -99,7 +99,6 @@ void printer(char** argv, FILE* file, int b, int e, int n, int s, int t) {
 
     char c;
     while ((c = fgetc(file)) != EOF) {
-        // printf("%c", c);
         if (c == EOF && e == 0) {
             printf("$");
         }
