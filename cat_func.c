@@ -109,6 +109,8 @@ int count_rdbl_files(int argc, char** argv) {
     return rdbl_files;
 }
 
+// void line_counter_printer(int* line_count, int* is_on_new_line)
+
 void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count) {
 
     // b - нумерует только непустые строки
@@ -117,11 +119,26 @@ void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is
     // s - сжимает смежные пустые строки
     // t - отображает табы как ^I
 
+    // int is_there_b = -1;
+
     char c;
     while ((c = fgetc(file)) != EOF) {
-        if (n == 0 && *is_on_new_line == 0) {
-            printf("     %d  ", *line_count);
-            *line_count = *line_count + 1;
+        if (*is_on_new_line == 0) {
+            // CODE DUPLICATION!!!!!!!!!!!!!!!!!! FIX IT!!!!!!!!!!!
+            if (b == 0) {
+                if (c != '\n') {
+                    // printf("     %d  ", *line_count);
+                    // *line_count = *line_count + 1;
+                    // *is_on_new_line = -1;
+                    line_counter_printer(line_count, is_on_new_line);
+                }
+            } else if (n == 0) {
+                // printf("     %d  ", *line_count);
+                // *line_count = *line_count + 1;
+                // *is_on_new_line = -1;
+                line_counter_printer(line_count, is_on_new_line);
+            }
+
             *is_on_new_line = -1;
         }
 
@@ -148,6 +165,12 @@ void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is
     if (e == 0 && c == EOF) {
         printf("$");
     }
+}
+
+void line_counter_printer(int* line_count, int* is_on_new_line) {
+    printf("     %d  ", *line_count);
+    *line_count = *line_count + 1;
+    *is_on_new_line = -1;
 }
 
 // debug code

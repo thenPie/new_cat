@@ -1,0 +1,76 @@
+./s21_cat files/second_file.txt -ne
+
+!!!MAIN CAT STARTS!!!
+
+--------------------------------------------
+n - is opt
+e - is opt
+     1  Testing$
+     2  (empty space incoming)$
+     3  $
+     4  $
+     5  $
+     6  $
+     7  IT              SHOULD HAVE BEEN TWO LINES$
+     8  the Second$
+     9  file$
+     10  $
+     11  $
+$<----------------------!!!MAIN CAT STOPPED!!!
+
+!!!!!!!!!!!!!!!another bug
+./s21_cat files/second_file.txt -net files/first_file.txt 
+--------------------------------------------
+!!!EXECUTING CODE TO PRINT OUT ALL THE INPUTTED ARGVs!!!
+
+argv[1] - files/second_file.txt
+argv[2] - -net
+argv[3] - files/first_file.txt
+
+!!!PRINTED OUT ALL ARGVs!!!
+--------------------------------------------
+
+--------------------------------------------
+!!!EXECUTING CODE TO CHECK IF ARGVs ARE FILES!!!
+
+Yes, argv[1] is a file and can be read
+No, argv[2] is NOT a file and can't be read
+Yes, argv[3] is a file and can be read
+
+!!!CHECKED ALL FILES!!!
+--------------------------------------------
+
+!!!MAIN CAT STARTS!!!
+
+--------------------------------------------
+n - is opt
+e - is opt
+t - is opt
+     1  Testing$
+     2  (empty space incoming)$
+     3  $
+     4  $
+     5  $
+     6  $
+     7  IT^I^ISHOULD HAVE BEEN TWO LINES$
+     8  the Second$
+     9  file$
+     10  $
+     11  $
+$
+     12  First$
+     13  ^Ifile$<----------------------!!!MAIN CAT STOPPED!!!
+cherlyma@DESKTOP-Q4PO708:~/new_cat$ cat files/second_file.txt files/first_file.txt -net
+     1  Testing$
+     2  (empty space incoming)$
+     3  $
+     4  $
+     5  $
+     6  $
+     7  IT^I^ISHOULD HAVE BEEN TWO LINES$
+     8  the Second$
+     9  file$
+    10  $
+    11  $
+    12  First$
+    13  ^Ifile

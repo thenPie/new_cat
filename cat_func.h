@@ -41,6 +41,7 @@ void main_cat(int argc, char** argv);
 void check_if_file_functional(int argc, char** argv);
 int count_rdbl_files(int argc, char** argv);
 void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count);
+void line_counter_printer(int* line_count, int* is_on_new_line);
 
 // debug code
 void print_all_argv_except_app_name(int argc, char** argv);
