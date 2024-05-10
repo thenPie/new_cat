@@ -15,12 +15,15 @@ void run_cat(int argc, char** argv) {
 }
 
 void main_cat(int argc, char** argv) {
-    printf("!!!MAIN CAT STARTS!!!\n\n");
+    printf("!!!MAIN CAT STARTS!!!\n\n--------------------------------------------\n");
     check_if_file_functional(argc, argv);
     printf("<----------------------!!!MAIN CAT STOPPED!!!\n");
 }
 
 void check_if_file_functional(int argc, char** argv) {
+
+    //amount of readable files
+    int readable_files = count_rdbl_files(argc, argv);
 
     // initialize variables for the flags
     int number_non_empty_lines_bb = -1; // number-nonblank
@@ -74,20 +77,7 @@ void check_if_file_functional(int argc, char** argv) {
         }
     }
 
-    // it's in a file cause i can't bother with dynamic memory
-    // it has a unique and random filename so it doesn't overwrite something
-    // after all processes it will print out from this file and delete this temp file
-    FILE* temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "r");
-    if (temp_file == NULL) {
-        // create the file
-        temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "w");
-        fclose(temp_file);
-        temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "a");
-    } else if (temp_file != NULL) {
-        fclose(temp_file);
-        temp_file = fopen("1g4gscvf3!Fs21/b6@$^&_!g5xg1g4x@^!fqd4vg", "a");
-    }
-
+    int amount_of_opened = 0;
     for (int i = 1; i < argc; i++) {
         int no_file = 0;
         FILE* file = fopen(argv[i], "r");
@@ -96,15 +86,24 @@ void check_if_file_functional(int argc, char** argv) {
             printer(argv, file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt);
             fclose(file);
             no_file = -1;
+            amount_of_opened++;
         }
-        if (no_file == -1) {
+        if (no_file == -1 && amount_of_opened < readable_files) {
             printf("\n");
         }
     }
+}
 
-    if (temp_file != NULL) {
-        fclose(temp_file);
+int count_rdbl_files(int argc, char** argv) {
+    int rdbl_files = 0;
+    for (int i = 1; i < argc; i++) {
+        FILE* file = fopen(argv[i], "r");
+        if (file != NULL) {
+            rdbl_files++;
+            fclose(file);
+        }
     }
+    return rdbl_files;
 }
 
 void printer(char** argv, FILE* file, int b, int e, int n, int s, int t) {

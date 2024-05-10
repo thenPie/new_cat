@@ -39,6 +39,7 @@
 void run_cat(int argc, char** argv);
 void main_cat(int argc, char** argv);
 void check_if_file_functional(int argc, char** argv);
+int count_rdbl_files(int argc, char** argv);
 void printer(char** argv, FILE* file, int b, int e, int n, int s, int t);
 
 // debug code
