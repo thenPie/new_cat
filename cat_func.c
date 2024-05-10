@@ -77,19 +77,22 @@ void check_if_file_functional(int argc, char** argv) {
         }
     }
 
+    int is_on_new_line = 0; // condition, not count
+    int line_count = 1;     // line count
     int amount_of_opened = 0;
     for (int i = 1; i < argc; i++) {
         int no_file = 0;
         FILE* file = fopen(argv[i], "r");
         if (file != NULL) {
             // print out the file here
-            printer(argv, file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt);
+            printer(argv, file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt, &is_on_new_line, &line_count);
             fclose(file);
             no_file = -1;
             amount_of_opened++;
         }
         if (no_file == -1 && amount_of_opened < readable_files) {
             printf("\n");
+            is_on_new_line = 0;
         }
     }
 }
@@ -106,7 +109,7 @@ int count_rdbl_files(int argc, char** argv) {
     return rdbl_files;
 }
 
-void printer(char** argv, FILE* file, int b, int e, int n, int s, int t) {
+void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count) {
 
     // b - нумерует только непустые строки
     // e - \n отображает как $
@@ -116,8 +119,14 @@ void printer(char** argv, FILE* file, int b, int e, int n, int s, int t) {
 
     char c;
     while ((c = fgetc(file)) != EOF) {
-        if (c == EOF && e == 0) {
-            printf("$");
+        if (n == 0 && *is_on_new_line == 0) {
+            printf("     %d  ", *line_count);
+            *line_count = *line_count + 1;
+            *is_on_new_line = -1;
+        }
+
+        if (c == '\n') {
+            *is_on_new_line = 0;
         }
 
         if (e == 0 && c == '\n') {
