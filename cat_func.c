@@ -6,10 +6,10 @@
 void run_cat(int argc, char** argv) {
     // check if any arguments were used except application start
     if (argc > 1) {
-        print_all_argv_except_app_name(argc, argv);
-        printf("\n");
-        check_if_file(argc, argv);
-        printf("\n");
+        // print_all_argv_except_app_name(argc, argv);
+        // printf("\n");
+        // check_if_file(argc, argv);
+        // printf("\n");
         main_cat(argc, argv);
     }
 }
@@ -43,31 +43,31 @@ void check_if_file_functional(int argc, char** argv) {
     while ((opt = getopt_long(argc, argv, ":benstET", long_opt, NULL)) != -1) {
         switch (opt) {
             case 'b':
-                what_opt(opt);
+                // what_opt(opt);
                 number_non_empty_lines_bb = 0;
                 break;
             case 'e':
-                what_opt(opt);
+                // what_opt(opt);
                 show_dollar_ends_ee = 0;
                 break;
             case 'n':
-                what_opt(opt);
+                // what_opt(opt);
                 number_all_lines_nn = 0;
                 break;
             case 's':
-                what_opt(opt);
+                // what_opt(opt);
                 suppress_empty_lines_ss = 0;
                 break;
             case 't':
-                what_opt(opt);
+                // what_opt(opt);
                 show_tabs_tt = 0;
                 break;
             case 'E':
-                what_opt(opt);
+                // what_opt(opt);
                 show_dollar_ends_ee = 0;
                 break;
             case 'T':
-                what_opt(opt);
+                // what_opt(opt);
                 show_tabs_tt = 0;
                 break;
             case '?':
@@ -85,7 +85,7 @@ void check_if_file_functional(int argc, char** argv) {
         FILE* file = fopen(argv[i], "r");
         if (file != NULL) {
             // print out the file here
-            printer(argv, file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt, &is_on_new_line, &line_count);
+            printer(file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt, &is_on_new_line, &line_count);
             fclose(file);
             no_file = -1;
             amount_of_opened++;
@@ -109,9 +109,7 @@ int count_rdbl_files(int argc, char** argv) {
     return rdbl_files;
 }
 
-// void line_counter_printer(int* line_count, int* is_on_new_line)
-
-void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count) {
+void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count) {
 
     // b - нумерует только непустые строки
     // e - \n отображает как $
@@ -119,23 +117,14 @@ void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is
     // s - сжимает смежные пустые строки
     // t - отображает табы как ^I
 
-    // int is_there_b = -1;
-
     char c;
     while ((c = fgetc(file)) != EOF) {
         if (*is_on_new_line == 0) {
-            // CODE DUPLICATION!!!!!!!!!!!!!!!!!! FIX IT!!!!!!!!!!!
             if (b == 0) {
                 if (c != '\n') {
-                    // printf("     %d  ", *line_count);
-                    // *line_count = *line_count + 1;
-                    // *is_on_new_line = -1;
                     line_counter_printer(line_count, is_on_new_line);
                 }
             } else if (n == 0) {
-                // printf("     %d  ", *line_count);
-                // *line_count = *line_count + 1;
-                // *is_on_new_line = -1;
                 line_counter_printer(line_count, is_on_new_line);
             }
 
@@ -161,6 +150,10 @@ void printer(char** argv, FILE* file, int b, int e, int n, int s, int t, int* is
         } else {
             printf("%c", c);
         }
+    }
+    if (n == 0 && c == EOF  && *is_on_new_line == 0) {
+        // line_counter_printer
+        line_counter_printer(line_count, is_on_new_line);
     }
     if (e == 0 && c == EOF) {
         printf("$");

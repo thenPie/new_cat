@@ -74,3 +74,38 @@ cherlyma@DESKTOP-Q4PO708:~/new_cat$ cat files/second_file.txt files/first_file.t
     11  $
     12  First$
     13  ^Ifile
+
+!!!!!!!!!!!!!!!!!!!!!!!!!another bug
+./s21_cat files/second_file.txt files/first_file.txt -n
+!!!MAIN CAT STARTS!!!
+
+--------------------------------------------
+n - is opt
+     1  Testing
+     2  (empty space incoming)
+     3  
+     4  
+     5  
+     6  
+     7  IT              SHOULD HAVE BEEN FOUR LINES
+     8  the Second
+     9  file
+     10  
+     11  
+
+     12  First
+     13         file<----------------------!!!MAIN CAT STOPPED!!!
+cherlyma@DESKTOP-Q4PO708:~/new_cat$ cat files/second_file.txt files/first_file.txt -n
+     1  Testing
+     2  (empty space incoming)
+     3
+     4
+     5
+     6
+     7  IT              SHOULD HAVE BEEN FOUR LINES
+     8  the Second
+     9  file
+    10
+    11
+    12  First
+    13          file
