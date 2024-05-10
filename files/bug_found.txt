@@ -18,6 +18,9 @@ e - is opt
      11  $
 $<----------------------!!!MAIN CAT STOPPED!!!
 
+^^^^^^^^^^^^^^^^^
+FIXED
+
 !!!!!!!!!!!!!!!another bug
 ./s21_cat files/second_file.txt -net files/first_file.txt 
 --------------------------------------------
@@ -60,6 +63,9 @@ t - is opt
 $
      12  First$
      13  ^Ifile$<----------------------!!!MAIN CAT STOPPED!!!
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     FIXED
+
 cherlyma@DESKTOP-Q4PO708:~/new_cat$ cat files/second_file.txt files/first_file.txt -net
      1  Testing$
      2  (empty space incoming)$
@@ -109,3 +115,5 @@ cherlyma@DESKTOP-Q4PO708:~/new_cat$ cat files/second_file.txt files/first_file.t
     11
     12  First
     13          file
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    FIXED

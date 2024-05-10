@@ -161,9 +161,40 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
 }
 
 void line_counter_printer(int* line_count, int* is_on_new_line) {
-    printf("     %d  ", *line_count);
+    // printf("     %d  ", *line_count);
+    int is_overflow = -1;
+    int amount_of_spaces = 5;
+    if (*line_count < 10) {
+        lcp_empty(amount_of_spaces);
+    } else if (*line_count < 100) {
+        amount_of_spaces = 4;
+        lcp_empty(amount_of_spaces);
+    } else if (*line_count < 1000) {
+        amount_of_spaces = 3;
+        lcp_empty(amount_of_spaces);
+    } else if (*line_count < 10000) {
+        amount_of_spaces = 2;
+        lcp_empty(amount_of_spaces);
+    } else if (*line_count < 100000) {
+        amount_of_spaces = 1;
+        lcp_empty(amount_of_spaces);
+    } else if (*line_count < 1000000) {
+        is_overflow = 0;
+        // printf("+999999");
+    }
+    if (is_overflow != 0) {
+        printf("%d  ", *line_count);
+    } else {
+        printf("+999999");
+    }
     *line_count = *line_count + 1;
     *is_on_new_line = -1;
+}
+
+void lcp_empty(int aos) {
+    for (int i = 0; i < aos; i++) {
+        printf(" ");
+    }
 }
 
 // debug code
