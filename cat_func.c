@@ -137,7 +137,9 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
                     line_counter_printer(line_count, is_on_new_line);
                 }
             } else if (n == 0) {
-                line_counter_printer(line_count, is_on_new_line);
+                if (!(s == 0 && *empty_line_count > 1)) {
+                    line_counter_printer(line_count, is_on_new_line);
+                }
             }
 
             *is_on_new_line = -1;
