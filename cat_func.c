@@ -79,13 +79,15 @@ void check_if_file_functional(int argc, char** argv) {
 
     int is_on_new_line = 0; // condition, not count
     int line_count = 1;     // line count
+    int empty_line_count = 0;
     int amount_of_opened = 0;
+
     for (int i = 1; i < argc; i++) {
         int no_file = 0;
         FILE* file = fopen(argv[i], "r");
         if (file != NULL) {
             // print out the file here
-            printer(file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt, &is_on_new_line, &line_count);
+            printer(file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt, &is_on_new_line, &line_count, &empty_line_count);
             fclose(file);
             no_file = -1;
             amount_of_opened++;
@@ -109,7 +111,7 @@ int count_rdbl_files(int argc, char** argv) {
     return rdbl_files;
 }
 
-void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count) {
+void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count, int* empty_line_count) {
 
     // b - нумерует только непустые строки
     // e - \n отображает как $
@@ -119,6 +121,16 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
 
     char c;
     while ((c = fgetc(file)) != EOF) {
+        if (s == 0) {
+            if (*is_on_new_line == 0) {
+                if (c == '\n') {
+                    *empty_line_count += 1;
+                } else {
+                    *empty_line_count = 0;
+                }
+            }
+        }
+
         if (*is_on_new_line == 0) {
             if (b == 0) {
                 if (c != '\n') {
@@ -143,12 +155,34 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
             c = '^';
         }
 
-        if (c == '$') {
-            printf("%c\n", c);
-        } else if (c == '^') {
-            printf("%cI", c);
-        } else {
-            printf("%c", c);
+        if (s == 0 && *empty_line_count > 1) {
+            c = '!';
+        }
+
+        // if (c == '$') {
+        //     printf("%c\n", c);
+        // } else if (c == '^') {
+        //     printf("%cI", c);
+        // } else if (c == '=') {
+        //     printf("EMPTY LINE THAT SHOULD BE PRINTED");
+        // } else if (c == '!') {
+        //     printf("EMPTY LINE THAT SHOULD NOT HAVE BEEN PRINTED");
+        // } else {
+        //     printf("%c", c);
+        // }
+
+        switch (c) {
+            case '$':
+                printf("%c\n", c);
+                break;
+            case '^':
+                printf("%cI", c);
+                break;
+            case '!':
+                break;
+            default:
+                printf("%c", c);
+                break;
         }
     }
     if (n == 0 && c == EOF  && *is_on_new_line == 0) {
