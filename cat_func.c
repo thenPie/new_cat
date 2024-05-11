@@ -4,32 +4,25 @@
 
 // functional code
 void run_cat(int argc, char** argv) {
-    // check if any arguments were used except application start
     if (argc > 1) {
-        // print_all_argv_except_app_name(argc, argv);
-        // printf("\n");
-        // check_if_file(argc, argv);
-        // printf("\n");
-        main_cat(argc, argv);
+        // main_cat(argc, argv);
+        check_if_file_functional(argc, argv);
     }
 }
 
+// it was used for debugging, no need for it now
 void main_cat(int argc, char** argv) {
-    printf("!!!MAIN CAT STARTS!!!\n\n--------------------------------------------\n");
     check_if_file_functional(argc, argv);
-    printf("<----------------------!!!MAIN CAT STOPPED!!!\n");
 }
 
 void check_if_file_functional(int argc, char** argv) {
 
-    //amount of readable files
     int readable_files = count_rdbl_files(argc, argv);
 
-    // initialize variables for the flags
-    int number_non_empty_lines_bb = -1; // number-nonblank
+    int number_non_empty_lines_bb = -1;
     int show_dollar_ends_ee = -1;
-    int number_all_lines_nn = -1;       // number
-    int suppress_empty_lines_ss = -1;   // squeeze-blank
+    int number_all_lines_nn = -1;
+    int suppress_empty_lines_ss = -1;
     int show_tabs_tt = -1;
 
     struct option long_opt[] = {
@@ -43,31 +36,24 @@ void check_if_file_functional(int argc, char** argv) {
     while ((opt = getopt_long(argc, argv, ":benstET", long_opt, NULL)) != -1) {
         switch (opt) {
             case 'b':
-                // what_opt(opt);
                 number_non_empty_lines_bb = 0;
                 break;
             case 'e':
-                // what_opt(opt);
                 show_dollar_ends_ee = 0;
                 break;
             case 'n':
-                // what_opt(opt);
                 number_all_lines_nn = 0;
                 break;
             case 's':
-                // what_opt(opt);
                 suppress_empty_lines_ss = 0;
                 break;
             case 't':
-                // what_opt(opt);
                 show_tabs_tt = 0;
                 break;
             case 'E':
-                // what_opt(opt);
                 show_dollar_ends_ee = 0;
                 break;
             case 'T':
-                // what_opt(opt);
                 show_tabs_tt = 0;
                 break;
             case '?':
@@ -77,8 +63,8 @@ void check_if_file_functional(int argc, char** argv) {
         }
     }
 
-    int is_on_new_line = 0; // condition, not count
-    int line_count = 1;     // line count
+    int is_on_new_line = 0;
+    int line_count = 1;
     int empty_line_count = 0;
     int amount_of_opened = 0;
 
@@ -112,13 +98,6 @@ int count_rdbl_files(int argc, char** argv) {
 }
 
 void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count, int* empty_line_count) {
-
-    // b - нумерует только непустые строки
-    // e - \n отображает как $
-    // n - нумерует все строки
-    // s - сжимает смежные пустые строки
-    // t - отображает табы как ^I
-
     char c;
     while ((c = fgetc(file)) != EOF) {
         if (s == 0) {
@@ -161,18 +140,6 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
             c = '!';
         }
 
-        // if (c == '$') {
-        //     printf("%c\n", c);
-        // } else if (c == '^') {
-        //     printf("%cI", c);
-        // } else if (c == '=') {
-        //     printf("EMPTY LINE THAT SHOULD BE PRINTED");
-        // } else if (c == '!') {
-        //     printf("EMPTY LINE THAT SHOULD NOT HAVE BEEN PRINTED");
-        // } else {
-        //     printf("%c", c);
-        // }
-
         switch (c) {
             case '$':
                 printf("%c\n", c);
@@ -188,7 +155,6 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
         }
     }
     if (n == 0 && c == EOF  && *is_on_new_line == 0) {
-        // line_counter_printer
         line_counter_printer(line_count, is_on_new_line);
     }
     if (e == 0 && c == EOF) {
@@ -197,7 +163,6 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
 }
 
 void line_counter_printer(int* line_count, int* is_on_new_line) {
-    // printf("     %d  ", *line_count);
     int is_overflow = -1;
     int amount_of_spaces = 5;
     if (*line_count < 10) {
@@ -216,7 +181,6 @@ void line_counter_printer(int* line_count, int* is_on_new_line) {
         lcp_empty(amount_of_spaces);
     } else if (*line_count < 1000000) {
         is_overflow = 0;
-        // printf("+999999");
     }
     if (is_overflow != 0) {
         printf("%d  ", *line_count);
