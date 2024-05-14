@@ -26,6 +26,9 @@ wrong=0
 app_name="s21_cat"
 
 if [ -e "$app_name" ]; then
+    
+    echo "MAY NOT BE THE SAME FOR DIFFERENT OPERATING SYSTEMS"
+    
     for file in $files; do
 
         for flag in $flags; do
