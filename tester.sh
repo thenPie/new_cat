@@ -27,6 +27,7 @@ for file in $files; do
 
     for flag in $flags; do
 
+        # debug line, can be commented out
         echo "Parameters for the test are: $flag $file"
     
         current_base_output=$($base_command $file $flag)
