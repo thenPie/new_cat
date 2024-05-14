@@ -40,8 +40,8 @@ if [ -e "$app_name" ]; then
             s21_base_output=$($s21_command $file $flag)
 
             if [ "$current_base_output" = "$s21_base_output" ]; then
-                approved=$((approved + 1))
                 echo "${GREEN}MATCHES${NC}"
+                approved=$((approved + 1))
             else
                 echo "${RED}DO NOT MATCH${NC}"
                 wrong=$((wrong + 1))
