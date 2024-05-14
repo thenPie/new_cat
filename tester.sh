@@ -7,13 +7,16 @@ NC='\033[0m'
 base_command="cat"
 s21_command="./s21_cat"
 
+# can be changed
 flags="-b -e -n -s -t -E -T"
 
+# can be changed
 file_path_one="files/first_file.txt"
 file_path_two="files/second_file.txt"
 file_path_three="files/third_file.txt"
 file_path_four="files/test_hzciMX.txt"
 
+# can be changed
 files="$file_path_one $file_path_two $file_path_three $file_path_four"
 
 every_check=0
