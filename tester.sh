@@ -23,31 +23,37 @@ every_check=0
 approved=0
 wrong=0
 
-for file in $files; do
+app_name="s21_cat"
 
-    for flag in $flags; do
+if [ -e "$app_name" ]; then
+    for file in $files; do
 
-        # debug line, can be commented out
-        echo "Parameters for the test are: $flag $file"
-    
-        current_base_output=$($base_command $file $flag)
-        s21_base_output=$($s21_command $file $flag)
+        for flag in $flags; do
 
-        if [ "$current_base_output" = "$s21_base_output" ]; then
-            approved=$((approved + 1))
-            echo "${GREEN}MATCHES${NC}"
-        else
-            echo "${RED}DO NOT MATCH${NC}"
-            wrong=$((wrong + 1))
-        fi
+            # debug line, can be commented out
+            echo "Parameters for the test are: $flag $file"
+        
+            current_base_output=$($base_command $file $flag)
+            s21_base_output=$($s21_command $file $flag)
 
-        every_check=$((every_check + 1))
+            if [ "$current_base_output" = "$s21_base_output" ]; then
+                approved=$((approved + 1))
+                echo "${GREEN}MATCHES${NC}"
+            else
+                echo "${RED}DO NOT MATCH${NC}"
+                wrong=$((wrong + 1))
+            fi
+
+            every_check=$((every_check + 1))
+
+        done
 
     done
 
-done
-
-echo "Tests are done"
-echo "Amount of tests: $every_check"
-echo "           GOOD: $approved"
-echo "            BAD: $wrong"
+    echo "Tests are done"
+    echo "Amount of tests: $every_check"
+    echo "           GOOD: $approved"
+    echo "            BAD: $wrong"
+else
+    echo "Cannot do checks because there is no s21_cat"
+fi
