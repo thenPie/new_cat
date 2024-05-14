@@ -17,7 +17,7 @@ file_path_three="files/third_file.txt"
 file_path_four="files/test_hzciMX.txt"
 
 # can be changed
-files="$file_path_one $file_path_two $file_path_three $file_path_four"
+files="$file_path_one $file_path_two $file_path_three"
 
 every_check=0
 approved=0

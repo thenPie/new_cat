@@ -158,16 +158,16 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
         }
     }
 
-    if (n == 0 && c == EOF  && *is_on_new_line == 0) {
-        if (!(s == 0 && *empty_line_count > 1)) {
-            line_counter_printer(line_count, is_on_new_line);
-        }
-    }
-    if (e == 0 && c == EOF) {
-        if (!(s == 0 && *empty_line_count > 1)) {
-            printf("$");
-        }
-    }
+    // if (n == 0 && c == EOF  && *is_on_new_line == 0) {
+    //     if (!(s == 0 && *empty_line_count > 1)) {
+    //         line_counter_printer(line_count, is_on_new_line);
+    //     }
+    // }
+    // if (e == 0 && c == EOF) {
+    //     if (!(s == 0 && *empty_line_count > 1)) {
+    //         printf("$");
+    //     }
+    // }
 }
 
 void line_counter_printer(int* line_count, int* is_on_new_line) {
