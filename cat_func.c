@@ -74,13 +74,16 @@ void check_if_file_functional(int argc, char** argv) {
         if (file != NULL) {
             // print out the file here
             printer(file, number_non_empty_lines_bb, show_dollar_ends_ee, number_all_lines_nn, suppress_empty_lines_ss, show_tabs_tt, &is_on_new_line, &line_count, &empty_line_count);
+            // printf("\n%d EMPTY_LINE_COUNT", empty_line_count);
             fclose(file);
             no_file = -1;
             amount_of_opened++;
         }
         if (no_file == -1 && amount_of_opened < readable_files) {
-            printf("\n");
-            is_on_new_line = 0;
+            if (!(suppress_empty_lines_ss == 0 && empty_line_count > 1)) {
+                printf("\n");
+                is_on_new_line = 0;
+            }
         }
     }
 }
@@ -154,11 +157,16 @@ void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
                 break;
         }
     }
+
     if (n == 0 && c == EOF  && *is_on_new_line == 0) {
-        line_counter_printer(line_count, is_on_new_line);
+        if (!(s == 0 && *empty_line_count > 1)) {
+            line_counter_printer(line_count, is_on_new_line);
+        }
     }
     if (e == 0 && c == EOF) {
-        printf("$");
+        if (!(s == 0 && *empty_line_count > 1)) {
+            printf("$");
+        }
     }
 }
 

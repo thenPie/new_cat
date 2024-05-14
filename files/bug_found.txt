@@ -117,3 +117,11 @@ cherlyma@DESKTOP-Q4PO708:~/new_cat$ cat files/second_file.txt files/first_file.t
     13          file
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     FIXED
+
+-senb
+
+three files inputted
+
+-sen
+
+second_file
