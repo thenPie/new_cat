@@ -8,12 +8,6 @@ all: s21_cat
 s21_cat: $(CAT_SRC_CODE)
 	$(CC_FLAGS_STD) $(NAME_IS) s21_cat $(CAT_SRC_CODE)
 
-clang-check:
-	clang-format -n *.c
-
-clang-fix:
-	clang-format -i *.c
-
 clean:
 	rm s21_cat
 

@@ -1,8 +1,8 @@
 #ifndef CAT_FUNC_H
 #define CAT_FUNC_H
 
-#include <stdio.h>
 #include <getopt.h>
+#include <stdio.h>
 
 // fancy colourful text
 #define CLR_RED "\x1b[31m"
@@ -35,18 +35,23 @@
 
 #define BCKGRND_RESET "\x1b[49m"
 
-// functional code
 void run_cat(int argc, char** argv);
-void main_cat(int argc, char** argv);
-void check_if_file_functional(int argc, char** argv);
+void check_if_file_functional(int argc, char** argv, int rdbl_files, int* bb,
+                              int* ee, int* nn, int* ss, int* tt,
+                              int* is_on_new_line, int* line_count,
+                              int* empty_line_count, int* amount_of_opened,
+                              struct option long_opt[], int* opt);
+void filer(int argc, char** argv, int bb, int ee, int nn, int ss, int tt,
+           int* is_on_new_line, int* line_count, int* empty_line_count,
+           int* amount_of_opened, int rdbl_files);
 int count_rdbl_files(int argc, char** argv);
-void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line, int* line_count, int* empty_line_count);
+void printer(FILE* file, int b, int e, int n, int s, int t, int* is_on_new_line,
+             int* line_count, int* empty_line_count);
+// not used
+void eof_checker(char c, int nn, int ss, int* line_count, int* is_on_new_line,
+                 int empty_line_count);
+void print_c(char c);
 void line_counter_printer(int* line_count, int* is_on_new_line);
 void lcp_empty(int aos);
-
-// debug code
-void print_all_argv_except_app_name(int argc, char** argv);
-void check_if_file(int argc, char** argv);
-void what_opt(int opt);
 
 #endif
